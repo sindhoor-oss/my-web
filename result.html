@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Analysis Result</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            min-height: 100vh;
+            color: white;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #cbd5e1;
+        }
+
+        .card {
+            background: white;
+            color: #1e293b;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #0f172a;
+        }
+
+        /* Readiness */
+
+        .readiness {
+            text-align: center;
+        }
+
+        .score {
+            font-size: 65px;
+            font-weight: bold;
+            color: #2563eb;
+            margin: 10px 0;
+        }
+
+        .role {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            height: 18px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .progress {
+            height: 100%;
+            width: {{ readiness }}%;
+            background: #2563eb;
+            border-radius: 20px;
+        }
+
+        /* Skill gaps */
+
+        .gap {
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .gap strong {
+            color: #c2410c;
+            font-size: 18px;
+        }
+
+        .levels {
+            margin-top: 7px;
+            color: #475569;
+        }
+
+        /* Learning path */
+
+        .learning {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .learning::before {
+            content: "📚 ";
+        }
+
+        /* No gaps */
+
+        .success {
+            background: #ecfdf5;
+            border-left: 5px solid #10b981;
+            padding: 18px;
+            border-radius: 8px;
+            color: #047857;
+            font-weight: bold;
+        }
+
+        /* Button */
+
+        .button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .score {
+                font-size: 50px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🎯 Skill Analysis Report</h1>
+        <p>Personalized Employee Skill Gap Analysis</p>
+    </div>
+
+
+    <!-- Employee & Role -->
+
+    <div class="card">
+        <h2>👤 Employee Profile</h2>
+
+        <p>
+            <strong>Name:</strong> {{ name }}
+        </p>
+
+        <p style="margin-top: 8px;">
+            <strong>Target Role:</strong> {{ role }}
+        </p>
+    </div>
+
+
+    <!-- Readiness -->
+
+    <div class="card readiness">
+
+        <h2>🚀 Role Readiness</h2>
+
+        <div class="score">
+            {{ readiness }}%
+        </div>
+
+        <div class="role">
+            Readiness for {{ role }}
+        </div>
+
+        <div class="progress-container">
+            <div class="progress"></div>
+        </div>
+
+        {% if readiness >= 80 %}
+            <p style="margin-top:15px; color:#047857; font-weight:bold;">
+                ✅ Strong role readiness!
+            </p>
+
+        {% elif readiness >= 60 %}
+            <p style="margin-top:15px; color:#b45309; font-weight:bold;">
+                🟡 Almost ready — improve the identified skill gaps.
+            </p>
+
+        {% else %}
+            <p style="margin-top:15px; color:#dc2626; font-weight:bold;">
+                ⚠️ More skill development is recommended.
+            </p>
+        {% endif %}
+
+    </div>
+
+
+    <!-- Skill Gaps -->
+
+    <div class="card">
+
+        <h2>⚠️ Identified Skill Gaps</h2>
+
+        {% if gaps %}
+
+            {% for gap in gaps %}
+
+            <div class="gap">
+
+                <strong>{{ gap.skill }}</strong>
+
+                <div class="levels">
+                    Current Level:
+                    <b>{{ gap.current }}/5</b>
+                    &nbsp; | &nbsp;
+                    Required Level:
+                    <b>{{ gap.required }}/5</b>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="success">
+                🎉 No skill gaps identified! You meet the required skill levels.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Learning Path -->
+
+    <div class="card">
+
+        <h2>📚 Recommended Learning Path</h2>
+
+        {% if learning_path %}
+
+            {% for item in learning_path %}
+
+            <div class="learning">
+                {{ item }}
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="success">
+                ✅ You are ready for this role. Continue improving your skills!
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Back -->
+
+    <div class="card">
+
+        <a href="/" class="button">
+            🔄 Analyze Another Employee
+        </a>
+
+    </div>
+
+
+    <div class="footer">
+        Employee Skill Gap Analyzer • Hackathon MVP
+    </div>
+
+</div>
+
+</body>
+
+</html>
