@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Best Role Matches</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            min-height: 100vh;
+            padding: 30px 15px;
+            color: white;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #cbd5e1;
+        }
+
+        .best {
+            background: white;
+            color: #1e293b;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .best h2 {
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .best-role {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .card {
+            background: white;
+            color: #1e293b;
+            padding: 22px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .rank {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .role-name {
+            font-size: 21px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .score {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .bar-background {
+            background: #e2e8f0;
+            height: 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 20px;
+        }
+
+        .button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .best-role {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>🎯 Best Role Matches</h1>
+
+        <p>
+            Hello {{ name }}! Based on your current skills,
+            these roles are your best matches.
+        </p>
+
+    </div>
+
+
+    <!-- BEST ROLE -->
+
+    <div class="best">
+
+        <h2>🏆 Recommended Role</h2>
+
+        <div class="best-role">
+            {{ best_role }}
+        </div>
+
+        <p style="margin-top: 10px;">
+            This role has the highest match with your current skills.
+        </p>
+
+    </div>
+
+
+    <!-- ROLE RESULTS -->
+
+    {% for item in role_scores %}
+
+    <div class="card">
+
+        <div class="rank">
+
+            {% if loop.index == 1 %}
+                🥇 Rank 1
+            {% elif loop.index == 2 %}
+                🥈 Rank 2
+            {% else %}
+                🥉 Rank 3
+            {% endif %}
+
+        </div>
+
+
+        <div class="role-name">
+            {{ item.role }}
+        </div>
+
+
+        <div class="score">
+            {{ item.score }}% Match
+        </div>
+
+
+        <div class="bar-background">
+
+            <div
+                class="bar"
+                style="width: {{ item.score }}%;">
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+
+    <a href="/" class="button">
+        🔄 Analyze Again
+    </a>
+
+
+</div>
+
+</body>
+
+</html>
