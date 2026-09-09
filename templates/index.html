@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Employee Skill Gap Analyzer</title>
+    <title>SkillNova - Employee Skill Gap Analyzer</title>
 
     <style>
 
@@ -17,45 +19,53 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: linear-gradient(135deg, #0f172a, #312e81);
             min-height: 100vh;
-            color: rgb(196, 177, 177);
+            color: #f8fafc;
             padding: 30px 15px;
         }
 
         .container {
             max-width: 750px;
             margin: auto;
-            background: white;
-            color: #c9ef0e;
+            background: #ffffff;
+            color: #1e293b;
             padding: 35px;
             border-radius: 18px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
         }
 
         h1 {
             text-align: center;
-            color: #2563eb;
+            color: #6d28d9;
             margin-bottom: 10px;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
         }
 
         .subtitle {
             text-align: center;
             color: #64748b;
             margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         .section-title {
             margin: 25px 0 15px;
-            color: #0f172a;
-            border-bottom: 2px solid #e2e8f0;
+            color: #312e81;
+            border-bottom: 2px solid #ddd6fe;
             padding-bottom: 8px;
+            font-size: 21px;
+            font-weight: 800;
         }
 
         label {
             display: block;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 7px;
+            color: #334155;
         }
 
         input,
@@ -66,19 +76,27 @@
             border-radius: 8px;
             margin-bottom: 18px;
             font-size: 15px;
+            color: #1e293b;
+            background: #ffffff;
         }
 
         input:focus,
         select:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
         }
 
         .skill-box {
-            background: #f8fafc;
+            background: #f8f7ff;
+            border: 1px solid #e9d5ff;
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 15px;
+        }
+
+        .skill-box label {
+            color: #4c1d95;
         }
 
         .skill-box small {
@@ -86,12 +104,19 @@
             color: #64748b;
             margin-top: -10px;
             margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         button {
             width: 100%;
             padding: 15px;
-            background: #2563eb;
+
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #4f46e5
+            );
+
             color: white;
             border: none;
             border-radius: 10px;
@@ -99,19 +124,30 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
+
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
         }
 
         button:hover {
-            background: #1d4ed8;
+            background: linear-gradient(
+                90deg,
+                #6d28d9,
+                #4338ca
+            );
         }
 
         .note {
-            background: #eff6ff;
-            border-left: 4px solid #2563eb;
+            background: #eef2ff;
+            border-left: 4px solid #7c3aed;
             padding: 12px;
             margin-bottom: 20px;
-            color: #1e40af;
+            color: #4338ca;
             border-radius: 5px;
+            line-height: 1.5;
+        }
+
+        .note b {
+            color: #6d28d9;
         }
 
         .footer {
@@ -131,6 +167,14 @@
                 font-size: 25px;
             }
 
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
         }
 
     </style>
@@ -142,10 +186,11 @@
 
 <div class="container">
 
-    <h1>🚀 Employee Skill Gap Analyzer</h1>
+
+    <h1>🚀 SkillNova</h1>
 
     <p class="subtitle">
-        Discover your role readiness, skill gaps and personalized learning path.
+        Employee Skill Gap Analyzer
     </p>
 
 
@@ -470,7 +515,7 @@
 
     <div class="footer">
 
-        Employee Skill Gap Analyzer • Hackathon MVP
+        SkillNova • Employee Skill Gap Analyzer • Hackathon MVP
 
     </div>
 

@@ -5,10 +5,9 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Best Role Matches</title>
+    <title>SkillNova - Best Role Matches</title>
 
     <style>
 
@@ -20,7 +19,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: linear-gradient(135deg, #0f172a, #312e81);
             min-height: 100vh;
             padding: 30px 15px;
             color: white;
@@ -38,11 +37,15 @@
 
         .header h1 {
             font-size: 32px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: #c4b5fd;
+            font-weight: 800;
         }
 
-        .header p {
-            color: #cbd5e1;
+        .header-text {
+            color: #67e8f9;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .best {
@@ -52,16 +55,23 @@
             border-radius: 18px;
             text-align: center;
             margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
         }
 
         .best h2 {
-            color: #2563eb;
+            color: #7c3aed;
             margin-bottom: 12px;
         }
 
         .best-role {
             font-size: 28px;
             font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .best-description {
+            margin-top: 10px;
+            color: #64748b;
         }
 
         .card {
@@ -76,16 +86,18 @@
         .rank {
             font-size: 20px;
             font-weight: bold;
+            color: #7c3aed;
         }
 
         .role-name {
             font-size: 21px;
             font-weight: bold;
             margin-top: 8px;
+            color: #1e293b;
         }
 
         .score {
-            color: #2563eb;
+            color: #0891b2;
             font-size: 24px;
             font-weight: bold;
             margin-top: 8px;
@@ -101,7 +113,12 @@
 
         .bar {
             height: 100%;
-            background: #2563eb;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #4f46e5,
+                #06b6d4
+            );
             border-radius: 20px;
         }
 
@@ -109,7 +126,11 @@
             display: block;
             text-align: center;
             text-decoration: none;
-            background: #2563eb;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #4f46e5
+            );
             color: white;
             padding: 14px;
             border-radius: 10px;
@@ -118,13 +139,21 @@
         }
 
         .button:hover {
-            background: #1d4ed8;
+            background: linear-gradient(
+                90deg,
+                #6d28d9,
+                #4338ca
+            );
         }
 
         @media (max-width: 600px) {
 
             .header h1 {
                 font-size: 25px;
+            }
+
+            .header-text {
+                font-size: 16px;
             }
 
             .best-role {
@@ -137,20 +166,19 @@
 
 </head>
 
-
 <body>
 
 <div class="container">
 
+    <!-- HEADER -->
 
     <div class="header">
 
         <h1>🎯 Best Role Matches</h1>
 
-        <p>
-            Hello {{ name }}! Based on your current skills,
-            these roles are your best matches.
-        </p>
+        <div class="header-text">
+            Welcome to SkillNova, find your ultimate goal
+        </div>
 
     </div>
 
@@ -162,63 +190,90 @@
         <h2>🏆 Recommended Role</h2>
 
         <div class="best-role">
-            {{ best_role }}
+            Software Developer
         </div>
 
-        <p style="margin-top: 10px;">
+        <div class="best-description">
             This role has the highest match with your current skills.
-        </p>
+        </div>
 
     </div>
 
 
-    <!-- ROLE RESULTS -->
-
-    {% for item in role_scores %}
+    <!-- ROLE 1 -->
 
     <div class="card">
 
         <div class="rank">
-
-            {% if loop.index == 1 %}
-                🥇 Rank 1
-            {% elif loop.index == 2 %}
-                🥈 Rank 2
-            {% else %}
-                🥉 Rank 3
-            {% endif %}
-
+            🥇 Rank 1
         </div>
-
 
         <div class="role-name">
-            {{ item.role }}
+            Software Developer
         </div>
-
 
         <div class="score">
-            {{ item.score }}% Match
+            92% Match
         </div>
 
-
         <div class="bar-background">
-
-            <div
-                class="bar"
-                style="width: {{ item.score }}%;">
-            </div>
-
+            <div class="bar" style="width: 92%;"></div>
         </div>
 
     </div>
 
-    {% endfor %}
 
+    <!-- ROLE 2 -->
+
+    <div class="card">
+
+        <div class="rank">
+            🥈 Rank 2
+        </div>
+
+        <div class="role-name">
+            Data Analyst
+        </div>
+
+        <div class="score">
+            84% Match
+        </div>
+
+        <div class="bar-background">
+            <div class="bar" style="width: 84%;"></div>
+        </div>
+
+    </div>
+
+
+    <!-- ROLE 3 -->
+
+    <div class="card">
+
+        <div class="rank">
+            🥉 Rank 3
+        </div>
+
+        <div class="role-name">
+            UI/UX Designer
+        </div>
+
+        <div class="score">
+            76% Match
+        </div>
+
+        <div class="bar-background">
+            <div class="bar" style="width: 76%;"></div>
+        </div>
+
+    </div>
+
+
+    <!-- BUTTON -->
 
     <a href="/" class="button">
         🔄 Analyze Again
     </a>
-
 
 </div>
 

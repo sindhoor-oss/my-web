@@ -2,12 +2,15 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Skill Analysis Result</title>
+    <title>SkillNova - Skill Analysis Result</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -16,9 +19,9 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: linear-gradient(135deg, #0f172a, #312e81);
             min-height: 100vh;
-            color: white;
+            color: #f8fafc;
             padding: 30px 15px;
         }
 
@@ -27,22 +30,30 @@
             margin: auto;
         }
 
+        /* HEADER */
+
         .header {
             text-align: center;
             margin-bottom: 25px;
         }
 
         .header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #c4b5fd;
+            font-weight: 800;
         }
 
         .header p {
-            color: #cbd5e1;
+            color: #67e8f9;
+            font-size: 16px;
+            font-weight: 600;
         }
 
+        /* CARD */
+
         .card {
-            background: white;
+            background: #ffffff;
             color: #1e293b;
             border-radius: 18px;
             padding: 25px;
@@ -52,25 +63,44 @@
 
         .card h2 {
             margin-bottom: 18px;
-            color: #0f172a;
+            color: #312e81;
+            font-size: 22px;
+            font-weight: 800;
         }
 
-        /* Readiness */
+        /* PROFILE */
+
+        .profile-text {
+            margin-bottom: 8px;
+            color: #475569;
+            font-size: 16px;
+        }
+
+        .profile-text strong {
+            color: #6d28d9;
+        }
+
+        /* READINESS */
 
         .readiness {
             text-align: center;
         }
 
+        .readiness h2 {
+            color: #4f46e5;
+        }
+
         .score {
             font-size: 65px;
-            font-weight: bold;
-            color: #2563eb;
+            font-weight: 800;
+            color: #7c3aed;
             margin: 10px 0;
         }
 
         .role {
             font-size: 20px;
             font-weight: bold;
+            color: #334155;
         }
 
         .progress-container {
@@ -83,12 +113,23 @@
 
         .progress {
             height: 100%;
-            width: {{ readiness }}%;
-            background: #2563eb;
+            width: 82%;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #4f46e5,
+                #06b6d4
+            );
             border-radius: 20px;
         }
 
-        /* Skill gaps */
+        .readiness-message {
+            margin-top: 15px;
+            color: #047857;
+            font-weight: bold;
+        }
+
+        /* SKILL GAPS */
 
         .gap {
             background: #fff7ed;
@@ -106,23 +147,31 @@
         .levels {
             margin-top: 7px;
             color: #475569;
+            line-height: 1.6;
         }
 
-        /* Learning path */
+        .levels b {
+            color: #7c3aed;
+        }
+
+        /* LEARNING */
 
         .learning {
-            background: #eff6ff;
-            border-left: 5px solid #2563eb;
+            background: #eef2ff;
+            border-left: 5px solid #7c3aed;
             padding: 15px;
             margin-bottom: 12px;
             border-radius: 8px;
+            color: #3730a3;
+            font-weight: 600;
+            line-height: 1.5;
         }
 
         .learning::before {
             content: "📚 ";
         }
 
-        /* No gaps */
+        /* SUCCESS */
 
         .success {
             background: #ecfdf5;
@@ -131,15 +180,22 @@
             border-radius: 8px;
             color: #047857;
             font-weight: bold;
+            line-height: 1.5;
         }
 
-        /* Button */
+        /* BUTTON */
 
         .button {
             display: block;
             text-align: center;
             text-decoration: none;
-            background: #2563eb;
+
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #4f46e5
+            );
+
             color: white;
             padding: 14px;
             border-radius: 10px;
@@ -148,8 +204,14 @@
         }
 
         .button:hover {
-            background: #1d4ed8;
+            background: linear-gradient(
+                90deg,
+                #6d28d9,
+                #4338ca
+            );
         }
+
+        /* FOOTER */
 
         .footer {
             text-align: center;
@@ -158,10 +220,12 @@
             font-size: 14px;
         }
 
+        /* MOBILE */
+
         @media (max-width: 600px) {
 
             .header h1 {
-                font-size: 25px;
+                font-size: 26px;
             }
 
             .score {
@@ -171,138 +235,144 @@
             .card {
                 padding: 20px;
             }
+
+            .card h2 {
+                font-size: 20px;
+            }
+
         }
+
     </style>
 
 </head>
+
 
 <body>
 
 <div class="container">
 
+
+    <!-- HEADER -->
+
     <div class="header">
-        <h1>🎯 Skill Analysis Report</h1>
-        <p>Personalized Employee Skill Gap Analysis</p>
-    </div>
 
-
-    <!-- Employee & Role -->
-
-    <div class="card">
-        <h2>👤 Employee Profile</h2>
+        <h1>🎯 SkillNova Skill Analysis</h1>
 
         <p>
-            <strong>Name:</strong> {{ name }}
+            Personalized Employee Skill Gap Analysis
         </p>
 
-        <p style="margin-top: 8px;">
-            <strong>Target Role:</strong> {{ role }}
-        </p>
     </div>
 
 
-    <!-- Readiness -->
+    <!-- EMPLOYEE PROFILE -->
+
+    <div class="card">
+
+        <h2>👤 Employee Profile</h2>
+
+        <div class="profile-text">
+            <strong>Name:</strong> Rahul
+        </div>
+
+        <div class="profile-text">
+            <strong>Target Role:</strong> Python Developer
+        </div>
+
+    </div>
+
+
+    <!-- READINESS -->
 
     <div class="card readiness">
 
         <h2>🚀 Role Readiness</h2>
 
         <div class="score">
-            {{ readiness }}%
+            82%
         </div>
 
         <div class="role">
-            Readiness for {{ role }}
+            Readiness for Python Developer
         </div>
 
         <div class="progress-container">
+
             <div class="progress"></div>
+
         </div>
 
-        {% if readiness >= 80 %}
-            <p style="margin-top:15px; color:#047857; font-weight:bold;">
-                ✅ Strong role readiness!
-            </p>
-
-        {% elif readiness >= 60 %}
-            <p style="margin-top:15px; color:#b45309; font-weight:bold;">
-                🟡 Almost ready — improve the identified skill gaps.
-            </p>
-
-        {% else %}
-            <p style="margin-top:15px; color:#dc2626; font-weight:bold;">
-                ⚠️ More skill development is recommended.
-            </p>
-        {% endif %}
+        <div class="readiness-message">
+            ✅ Excellent! You are strongly prepared for this role.
+        </div>
 
     </div>
 
 
-    <!-- Skill Gaps -->
+    <!-- SKILL GAPS -->
 
     <div class="card">
 
         <h2>⚠️ Identified Skill Gaps</h2>
 
-        {% if gaps %}
+        <div class="gap">
 
-            {% for gap in gaps %}
+            <strong>SQL</strong>
 
-            <div class="gap">
+            <div class="levels">
+                Current Level:
+                <b>3/5</b>
 
-                <strong>{{ gap.skill }}</strong>
+                &nbsp; | &nbsp;
 
-                <div class="levels">
-                    Current Level:
-                    <b>{{ gap.current }}/5</b>
-                    &nbsp; | &nbsp;
-                    Required Level:
-                    <b>{{ gap.required }}/5</b>
-                </div>
-
+                Required Level:
+                <b>4/5</b>
             </div>
 
-            {% endfor %}
+        </div>
 
-        {% else %}
 
-            <div class="success">
-                🎉 No skill gaps identified! You meet the required skill levels.
+        <div class="gap">
+
+            <strong>Problem Solving</strong>
+
+            <div class="levels">
+                Current Level:
+                <b>3/5</b>
+
+                &nbsp; | &nbsp;
+
+                Required Level:
+                <b>5/5</b>
             </div>
 
-        {% endif %}
+        </div>
 
     </div>
 
 
-    <!-- Learning Path -->
+    <!-- LEARNING PATH -->
 
     <div class="card">
 
         <h2>📚 Recommended Learning Path</h2>
 
-        {% if learning_path %}
+        <div class="learning">
+            Improve advanced SQL queries and database concepts.
+        </div>
 
-            {% for item in learning_path %}
+        <div class="learning">
+            Practice Python algorithms and data structures.
+        </div>
 
-            <div class="learning">
-                {{ item }}
-            </div>
-
-            {% endfor %}
-
-        {% else %}
-
-            <div class="success">
-                ✅ You are ready for this role. Continue improving your skills!
-            </div>
-
-        {% endif %}
+        <div class="learning">
+            Solve coding problems regularly to improve logical thinking.
+        </div>
 
     </div>
 
 
-    <!-- Back -->
+    <!-- BUTTON -->
 
     <div class="card">
 
@@ -313,9 +383,14 @@
     </div>
 
 
+    <!-- FOOTER -->
+
     <div class="footer">
-        Employee Skill Gap Analyzer • Hackathon MVP
+
+        SkillNova • Employee Skill Gap Analyzer • Hackathon MVP
+
     </div>
+
 
 </div>
 
