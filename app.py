@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import sqlite3
 
 app = Flask(__name__)
 
@@ -6,7 +7,28 @@ app = Flask(__name__)
 # ==============================
 # ROLE REQUIREMENTS
 # ==============================
+def init_db():
+    conn = sqlite3.connect("student.db")
+    cursor = conn.cursor()
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS employees (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            role TEXT,
+            python INTEGER,
+            sql INTEGER,
+            html INTEGER,
+            communication INTEGER,
+            problem_solving INTEGER,
+            readiness INTEGER
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
+init_db()
 role_requirements = {
     "Python Developer": {
         "Python": 4,
