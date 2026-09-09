@@ -3,32 +3,8 @@ import sqlite3
 
 app = Flask(__name__)
 
+# ---------------- ROLE REQUIREMENTS ----------------
 
-# ==============================
-# ROLE REQUIREMENTS
-# ==============================
-def init_db():
-    conn = sqlite3.connect("student.db")
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS employees (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            role TEXT,
-            python INTEGER,
-            sql INTEGER,
-            html INTEGER,
-            communication INTEGER,
-            problem_solving INTEGER,
-            readiness INTEGER
-        )
-    """)
-
-    conn.commit()
-    conn.close()
-
-init_db()
 role_requirements = {
     "Python Developer": {
         "Python": 4,
@@ -56,9 +32,7 @@ role_requirements = {
 }
 
 
-# ==============================
-# LEARNING RECOMMENDATIONS
-# ==============================
+# ---------------- LEARNING RECOMMENDATIONS ----------------
 
 recommendations = {
     "Python": "Complete Python programming and problem-solving practice.",
@@ -69,18 +43,41 @@ recommendations = {
 }
 
 
-# ==============================
-# HOME
-# ==============================
+# ---------------- DATABASE ----------------
+
+def init_db():
+    conn = sqlite3.connect("student.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS employees (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            role TEXT,
+            python INTEGER,
+            sql INTEGER,
+            html INTEGER,
+            communication INTEGER,
+            problem_solving INTEGER,
+            readiness INTEGER
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
+
+init_db()
+
+
+# ---------------- HOME ----------------
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# ==============================
-# ANALYZE
-# ==============================
+# ---------------- ANALYZE ----------------
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -98,9 +95,7 @@ def analyze():
     role = request.form["role"]
 
 
-    # =================================
-    # FIND BEST ROLE
-    # =================================
+    # -------- FIND BEST ROLE --------
 
     if role == "Find My Best Role":
 
@@ -114,10 +109,7 @@ def analyze():
 
                 employee_level = skills[skill]
 
-                score = min(
-                    employee_level / required_level,
-                    1
-                )
+                score = min(employee_level / required_level, 1)
 
                 total_score += score
 
@@ -136,9 +128,40 @@ def analyze():
             reverse=True
         )
 
-
         best_role = role_scores[0]["role"]
 
+        # Save best role result
+        best_score = role_scores[0]["score"]
+
+        conn = sqlite3.connect("student.db")
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO employees
+            (
+                name,
+                role,
+                python,
+                sql,
+                html,
+                communication,
+                problem_solving,
+                readiness
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            name,
+            best_role,
+            skills["Python"],
+            skills["SQL"],
+            skills["HTML"],
+            skills["Communication"],
+            skills["Problem Solving"],
+            best_score
+        ))
+
+        conn.commit()
+        conn.close()
 
         return render_template(
             "matches.html",
@@ -148,9 +171,7 @@ def analyze():
         )
 
 
-    # =================================
-    # NORMAL ROLE ANALYSIS
-    # =================================
+    # -------- SELECTED ROLE --------
 
     required = role_requirements[role]
 
@@ -158,13 +179,9 @@ def analyze():
 
     total_score = 0
 
-
     for skill, required_level in required.items():
 
         employee_level = skills[skill]
-
-
-        # Find skill gap
 
         if employee_level < required_level:
 
@@ -174,9 +191,6 @@ def analyze():
                 "required": required_level
             })
 
-
-        # Calculate score
-
         score = min(
             employee_level / required_level,
             1
@@ -185,21 +199,14 @@ def analyze():
         total_score += score
 
 
-    # =================================
-    # READINESS
-    # =================================
-
     readiness = round(
         (total_score / len(required)) * 100
     )
 
 
-    # =================================
-    # LEARNING PATH
-    # =================================
+    # -------- LEARNING PATH --------
 
     learning_path = []
-
 
     for gap in gaps:
 
@@ -208,9 +215,38 @@ def analyze():
         )
 
 
-    # =================================
-    # SEND EVERYTHING TO result.html
-    # =================================
+    # -------- SAVE FINAL DATA --------
+
+    conn = sqlite3.connect("student.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO employees
+        (
+            name,
+            role,
+            python,
+            sql,
+            html,
+            communication,
+            problem_solving,
+            readiness
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        name,
+        role,
+        skills["Python"],
+        skills["SQL"],
+        skills["HTML"],
+        skills["Communication"],
+        skills["Problem Solving"],
+        readiness
+    ))
+
+    conn.commit()
+    conn.close()
+
 
     return render_template(
         "result.html",
@@ -222,9 +258,43 @@ def analyze():
     )
 
 
-# ==============================
-# RUN APPLICATION
-# ==============================
+# ---------------- ADMIN DATA PAGE ----------------
+
+@app.route("/admin")
+def admin():
+
+    conn = sqlite3.connect("student.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT
+            id,
+            name,
+            role,
+            python,
+            sql,
+            html,
+            communication,
+            problem_solving,
+            readiness
+        FROM employees
+        ORDER BY id DESC
+    """)
+
+    employees = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "admin.html",
+        employees=employees
+    )
+
+
+# ---------------- RUN APP ----------------
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5000)
+    app.run(
+        host="0.0.0.0",
+        port=5000
+    )

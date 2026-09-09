@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Skill Nova - Admin Data</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b1020;
+            color: white;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #151c33;
+        }
+
+        th {
+            background: #26345c;
+            padding: 14px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        tr:hover {
+            background: #202a48;
+        }
+
+        .score {
+            font-weight: bold;
+        }
+
+        .back {
+            display: block;
+            width: 180px;
+            margin: 30px auto;
+            padding: 12px;
+            text-align: center;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>📊 Skill Nova Employee Data</h1>
+
+    <div class="table-container">
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Python</th>
+                <th>SQL</th>
+                <th>HTML</th>
+                <th>Communication</th>
+                <th>Problem Solving</th>
+                <th>Readiness</th>
+            </tr>
+
+            {% for employee in employees %}
+
+            <tr>
+
+                <td>{{ employee[0] }}</td>
+
+                <td>{{ employee[1] }}</td>
+
+                <td>{{ employee[2] }}</td>
+
+                <td>{{ employee[3] }}</td>
+
+                <td>{{ employee[4] }}</td>
+
+                <td>{{ employee[5] }}</td>
+
+                <td>{{ employee[6] }}</td>
+
+                <td>{{ employee[7] }}</td>
+
+                <td class="score">
+                    {{ employee[8] }}%
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <a href="/" class="back">
+        ← Back to Skill Nova
+    </a>
+
+</body>
+</html>
