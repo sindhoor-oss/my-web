@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Skill Gap Analyzer</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            min-height: 100vh;
+            color: white;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            color: #1e293b;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            margin: 25px 0 15px;
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .skill-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .skill-box small {
+            display: block;
+            color: #64748b;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 12px;
+            margin-bottom: 20px;
+            color: #1e40af;
+            border-radius: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #64748b;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>🚀 Employee Skill Gap Analyzer</h1>
+
+    <p class="subtitle">
+        Discover your role readiness, skill gaps and personalized learning path.
+    </p>
+
+
+    <div class="note">
+
+        💡 Rate each skill from <b>1 to 5</b>.
+        Our system compares your skills with the requirements
+        of different roles.
+
+    </div>
+
+
+    <form action="/analyze" method="POST">
+
+
+        <!-- Employee Details -->
+
+        <h2 class="section-title">
+            👤 Employee Details
+        </h2>
+
+
+        <label for="name">
+            Employee Name
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            required
+        >
+
+
+        <!-- Role -->
+
+        <label for="role">
+            Target Role
+        </label>
+
+        <select
+            id="role"
+            name="role"
+            required
+        >
+
+            <option value="">
+                -- Select an Option --
+            </option>
+
+            <option value="Find My Best Role">
+                🔍 Find My Best Role
+            </option>
+
+            <option value="Python Developer">
+                Python Developer
+            </option>
+
+            <option value="Data Analyst">
+                Data Analyst
+            </option>
+
+            <option value="Web Developer">
+                Web Developer
+            </option>
+
+        </select>
+
+
+        <!-- Skills -->
+
+        <h2 class="section-title">
+            📊 Skill Assessment
+        </h2>
+
+
+        <!-- Python -->
+
+        <div class="skill-box">
+
+            <label for="python">
+                Python
+            </label>
+
+            <small>
+                Programming and Python development
+            </small>
+
+            <select
+                id="python"
+                name="python"
+                required
+            >
+
+                <option value="">
+                    Select level
+                </option>
+
+                <option value="1">
+                    1 - Beginner
+                </option>
+
+                <option value="2">
+                    2 - Basic
+                </option>
+
+                <option value="3">
+                    3 - Intermediate
+                </option>
+
+                <option value="4">
+                    4 - Advanced
+                </option>
+
+                <option value="5">
+                    5 - Expert
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- SQL -->
+
+        <div class="skill-box">
+
+            <label for="sql">
+                SQL
+            </label>
+
+            <small>
+                Database and SQL query skills
+            </small>
+
+            <select
+                id="sql"
+                name="sql"
+                required
+            >
+
+                <option value="">
+                    Select level
+                </option>
+
+                <option value="1">
+                    1 - Beginner
+                </option>
+
+                <option value="2">
+                    2 - Basic
+                </option>
+
+                <option value="3">
+                    3 - Intermediate
+                </option>
+
+                <option value="4">
+                    4 - Advanced
+                </option>
+
+                <option value="5">
+                    5 - Expert
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- HTML -->
+
+        <div class="skill-box">
+
+            <label for="html">
+                HTML
+            </label>
+
+            <small>
+                Web structure and page development
+            </small>
+
+            <select
+                id="html"
+                name="html"
+                required
+            >
+
+                <option value="">
+                    Select level
+                </option>
+
+                <option value="1">
+                    1 - Beginner
+                </option>
+
+                <option value="2">
+                    2 - Basic
+                </option>
+
+                <option value="3">
+                    3 - Intermediate
+                </option>
+
+                <option value="4">
+                    4 - Advanced
+                </option>
+
+                <option value="5">
+                    5 - Expert
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Communication -->
+
+        <div class="skill-box">
+
+            <label for="communication">
+                Communication
+            </label>
+
+            <small>
+                Teamwork, presentation and professional communication
+            </small>
+
+            <select
+                id="communication"
+                name="communication"
+                required
+            >
+
+                <option value="">
+                    Select level
+                </option>
+
+                <option value="1">
+                    1 - Beginner
+                </option>
+
+                <option value="2">
+                    2 - Basic
+                </option>
+
+                <option value="3">
+                    3 - Intermediate
+                </option>
+
+                <option value="4">
+                    4 - Advanced
+                </option>
+
+                <option value="5">
+                    5 - Expert
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Problem Solving -->
+
+        <div class="skill-box">
+
+            <label for="problem_solving">
+                Problem Solving
+            </label>
+
+            <small>
+                Logical thinking, algorithms and problem solving
+            </small>
+
+            <select
+                id="problem_solving"
+                name="problem_solving"
+                required
+            >
+
+                <option value="">
+                    Select level
+                </option>
+
+                <option value="1">
+                    1 - Beginner
+                </option>
+
+                <option value="2">
+                    2 - Basic
+                </option>
+
+                <option value="3">
+                    3 - Intermediate
+                </option>
+
+                <option value="4">
+                    4 - Advanced
+                </option>
+
+                <option value="5">
+                    5 - Expert
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Submit -->
+
+        <button type="submit">
+            🔍 Analyze My Skills
+        </button>
+
+
+    </form>
+
+
+    <div class="footer">
+
+        Employee Skill Gap Analyzer • Hackathon MVP
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
